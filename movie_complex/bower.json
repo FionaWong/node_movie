@@ -1,0 +1,19 @@
+{
+  "name": "movie",
+  "version": "0.0.0",
+  "homepage": "https://github.com/JsAaron/project",
+  "authors": [
+    "jsAaron <401545553@qq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}
