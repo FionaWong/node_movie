@@ -48,7 +48,9 @@ UserSchema.pre('save', function(next) {
 //实例方法
 UserSchema.methods = {
   comparePassword: function(_password, cb) {
-    cb(_password)
+    if(_password === this.password){
+      cb(null,_password)
+    }
   }
 }
 

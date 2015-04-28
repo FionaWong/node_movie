@@ -31,6 +31,15 @@ app.get('/', function(req, res) {
 	})
 })
 
+app.use(function(req,res,next){
+	 console.log('Time: %d', Date.now());
+	 // next()
+})
+
+app.use(function(req, res, next) {
+ console.log('qqqqqqqqqqqqqq');
+});
+
 //用户注册
 app.post('/user/signup', function(req, res) {
 	// req.query
@@ -72,6 +81,9 @@ app.post('/user/signin', function(req, res) {
 				console.log(err)
 			}
 			if (isMatch) {
+				console.log('密码匹配成功')
+				//保存登陆成功会话
+				req.session.user = user
 				return res.redirect('/')
 			} else {
 				return res.redirect('/signin')
