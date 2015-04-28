@@ -45,6 +45,16 @@ UserSchema.pre('save', function(next) {
 })
 
 
+//实例方法
+UserSchema.methods = {
+  comparePassword: function(_password, cb) {
+    cb(_password)
+  }
+}
+
+
+//静态方法
+//=》模型
 UserSchema.statics = {
   fetch: function(cb) {
     return this

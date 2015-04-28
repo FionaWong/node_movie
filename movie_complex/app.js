@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
 	})
 })
 
-//用户登录
+//用户注册
 app.post('/user/signup', function(req, res) {
 	// req.query
 	// req.params
@@ -53,6 +53,35 @@ app.post('/user/signup', function(req, res) {
 	})
 })
 
+//用户登录
+app.post('/user/signin', function(req, res) {
+	var _user    = req.body.user
+	var name     = _user.name
+	var password = _user.password
+	User.findOne({
+		name: name
+	}, function(err, user) {
+		if (err) {
+			console.log(err)
+		}
+		if (!user) {
+			return res.redirect('/signup')
+		}
+		user.comparePassword(password, function(err, isMatch) {
+			if (err) {
+				console.log(err)
+			}
+			if (isMatch) {
+				return res.redirect('/')
+			} else {
+				return res.redirect('/signin')
+			}
+		})
+	})
+})
+
+
+
 //用户列表
 app.get('/admin/userlist', function(req, res) {
 	User.fetch(function(err, users) {
@@ -65,7 +94,6 @@ app.get('/admin/userlist', function(req, res) {
 		})
 	})
 })
-
 
 
 app.get('/admin', function(req, res) {
