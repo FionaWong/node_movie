@@ -5,6 +5,8 @@ var app      = express()
 var _        = require('underscore')
 var mongoose = require('mongoose')
 var Movie    = require('./models/movie')
+//用户登录/注册
+var User    = require('./models/User')
 
 //链接到数据库
 mongoose.connect('mongodb://localhost/aaron')
@@ -28,6 +30,13 @@ app.get('/', function(req, res) {
 		})
 	})
 })
+
+//用户登录
+app.post('/user/singin',function(req,res){
+
+})
+
+
 
 app.get('/admin', function(req, res) {
 	res.redirect('/admin/list')	
