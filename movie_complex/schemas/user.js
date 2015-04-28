@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 //加密算法
-var bcrypt = require('bcrypt')
+// var bcrypt = require('bcrypt')
 var SALT_WORK_FACTOR = 10
 
 
@@ -29,18 +29,19 @@ UserSchema.pre('save', function(next) {
   } else {
     this.meta.updateAt = Date.now()
   }
+  next()
 
-  //加密算法
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if (err) return next(err)
-    //hash 
-    //得到的新密码
-    bcrypt.hash(user.password, salt, function(err, hash) {
-      if (err) return next(err)
-      user.password = hash
-      next()
-    })
-  })
+  // //加密算法
+  // bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  //   if (err) return next(err)
+  //   //hash 
+  //   //得到的新密码
+  //   bcrypt.hash(user.password, salt, function(err, hash) {
+  //     if (err) return next(err)
+  //     user.password = hash
+  //     next()
+  //   })
+  // })
 })
 
 

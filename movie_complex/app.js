@@ -12,7 +12,7 @@ var User    = require('./models/User')
 mongoose.connect('mongodb://localhost/aaron')
 
 //设置模板
-app.set('views', './views')
+app.set('views', './pages/views')
 app.set('view engine', 'jade')
 //post中间件
 app.use(express.bodyParser())
@@ -32,8 +32,38 @@ app.get('/', function(req, res) {
 })
 
 //用户登录
-app.post('/user/singin',function(req,res){
+app.post('/user/signup', function(req, res) {
+	// req.query
+	// req.params
+	var _user = req.body.user;
+	//是不是重复增加
+	User.findById({
+		name: _user.name
+	}, function(err, user) {
+		if (user) {
+			return res.redirect('/admin')
+		}
+		var user = new User(_user)
+		user.save(function(err, user) {
+			if (err) {
+				console.log(err)
+			}
+			res.redirect('/admin/userlist')
+		})
+	})
+})
 
+//用户列表
+app.get('/admin/userlist', function(req, res) {
+	User.fetch(function(err, users) {
+		if(err){
+			console.log(err)
+		}
+		res.render('userlist',{
+			title : '用户列表',
+			users : users
+		})
+	})
 })
 
 
