@@ -1,15 +1,18 @@
-var express  = require('express')
-var path     = require('path')
-var port     = process.env.PORT || 3000
-var app      = express()
-var _        = require('underscore')
-var mongoose = require('mongoose')
-var Movie    = require('./models/movie')
+var express    = require('express')
+var path       = require('path')
+var port       = process.env.PORT || 3000
+var app        = express()
+var _          = require('underscore')
+var mongoose   = require('mongoose')
+//存在session信息
+var mongoStore = require('connect-mongo')(express)
+var Movie      = require('./models/movie')
 //用户登录/注册
-var User    = require('./models/User')
+var User       = require('./models/User')
 
 //链接到数据库
-mongoose.connect('mongodb://localhost/aaron')
+var dbUrl = 'mongodb://localhost/aaron'
+mongoose.connect(dbUrl)
 
 //设置模板
 app.set('views', './pages/views')
@@ -20,7 +23,11 @@ app.use(express.bodyParser())
 //session处理
 app.use(express.cookieParser())
 app.use(express.session({
-	secret:'aaron'
+	secret : 'aaron',
+	store  : new mongoStore({ //建立mongo链接
+		url        : dbUrl,
+		collection : 'sessions' //存放的表中
+	})
 }))
 
 //本地资源路径
@@ -28,19 +35,25 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.locals.moment = require('moment')
 app.listen(port)
 
+app.use(function(req, res, next) {
+	var _user = req.session.user;
+	if (_user) {
+		app.locals.user = _user;
+	}
+	next()
+})
+
+
 //首页
 app.get('/', function(req, res) {
-	console.log('use is session')
-	console.log(req.session.user)
 	Movie.fetch(function(err, movies) {
 		res.render('index', {
-			title  : '电影首页',
-			movies : movies
+			title: '电影首页',
+			movies: movies
 		})
 	})
 })
 
- 
 //用户注册
 app.post('/user/signup', function(req, res) {
 	// req.query
@@ -92,7 +105,12 @@ app.post('/user/signin', function(req, res) {
 	})
 })
 
-
+//退出销毁session
+app.get('/logout',function(req,res){
+	delete req.session.user
+	delete app.locals.user
+	res.redirect('/')
+})
 
 //用户列表
 app.get('/admin/userlist', function(req, res) {
@@ -107,7 +125,7 @@ app.get('/admin/userlist', function(req, res) {
 	})
 })
 
-
+//定位
 app.get('/admin', function(req, res) {
 	res.redirect('/admin/list')	
 })
