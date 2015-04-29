@@ -11,12 +11,13 @@ var dbUrl = 'mongodb://localhost/aaron'
 mongoose.connect(dbUrl)
 
 //设置模板
-app.set('views', './pages/views')
+app.set('views', './app/views/pages/')
 app.set('view engine', 'jade')
 //post中间件
 app.use(express.bodyParser())
 
 //session处理
+//引入mongoStore保存到数据库
 app.use(express.cookieParser())
 app.use(express.session({
 	secret : 'aaron',
@@ -26,6 +27,15 @@ app.use(express.session({
 	})
 }))
 
+//设置开发环境
+if ('development' === app.get('env')) {
+	//打印错误
+	app.set('showStackError', true)
+	app.use(express.logger(':method :url :status'))
+		// 不压缩源码
+	app.locals.pretty = true
+	mongoose.set('debug', true)
+}
 
 require('./config/routes')(app)
 
