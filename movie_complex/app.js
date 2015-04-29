@@ -16,6 +16,13 @@ app.set('views', './pages/views')
 app.set('view engine', 'jade')
 //post中间件
 app.use(express.bodyParser())
+
+//session处理
+app.use(express.cookieParser())
+app.use(express.session({
+	secret:'aaron'
+}))
+
 //本地资源路径
 app.use(express.static(path.join(__dirname, 'public')))
 app.locals.moment = require('moment')
@@ -23,6 +30,8 @@ app.listen(port)
 
 //首页
 app.get('/', function(req, res) {
+	console.log('use is session')
+	console.log(req.session.user)
 	Movie.fetch(function(err, movies) {
 		res.render('index', {
 			title  : '电影首页',
@@ -31,15 +40,7 @@ app.get('/', function(req, res) {
 	})
 })
 
-app.use(function(req,res,next){
-	 console.log('Time: %d', Date.now());
-	 // next()
-})
-
-app.use(function(req, res, next) {
- console.log('qqqqqqqqqqqqqq');
-});
-
+ 
 //用户注册
 app.post('/user/signup', function(req, res) {
 	// req.query
@@ -81,7 +82,6 @@ app.post('/user/signin', function(req, res) {
 				console.log(err)
 			}
 			if (isMatch) {
-				console.log('密码匹配成功')
 				//保存登陆成功会话
 				req.session.user = user
 				return res.redirect('/')
