@@ -7,6 +7,7 @@ var _ = require('underscore')
 //通过id 获取详情页面的指定数据
 exports.detail = function(req, res) {
 	var id = req.params.id
+	console.log(id)
 	Movie.findById(id, function(err, movie) {
 		res.render('detail', {
 			title: movie.title,

@@ -3,7 +3,7 @@ var _ = require('underscore')
 //路由控制器
 var Index = require('../app/controllers/index')
 var User  = require('../app/controllers/user')
-// var Movie = require('../app/controllers/movie')
+var Movie = require('../app/controllers/movie')
 
 module.exports = function(app) {
 
@@ -20,17 +20,17 @@ module.exports = function(app) {
 	app.get('/',Index.index)
 
 	//用户管理
-	//登陆 登出
+	//登陆 登出 用户列表
   app.post('/user/signin',User.signin)
   app.post('/user/signup', User.signup)
-  // app.get('/logout', User.logout)
+  app.get('/logout', User.logout)
+  app.get('/user/userlist',User.userlist)
 
   //电影处理
-  // app.get('/movie/:id', Movie.detail)
-  // app.get('/admin/movie/new',  Movie.new)
+  app.get('/admin/movie/detail/:id', Movie.detail)
+  app.get('/admin/movie/list', Movie.list)
   // app.get('/admin/movie/update/:id',  Movie.update)
   // app.post('/admin/movie', Movie.save)
-  // app.get('/admin/movie/list', Movie.list)
   // app.delete('/admin/movie/list', Movie.delete)
 
 }
