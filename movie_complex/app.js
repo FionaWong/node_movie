@@ -32,7 +32,7 @@ if ('development' === app.get('env')) {
 	//打印错误
 	app.set('showStackError', true)
 	app.use(express.logger(':method :url :status'))
-		// 不压缩源码
+	// 不压缩源码
 	app.locals.pretty = true
 	mongoose.set('debug', true)
 }
