@@ -14,7 +14,6 @@ exports.showSignin = function(req, res) {
 }
 
 
-
 //用户注册
 exports.signup = function(req, res) {
 	// req.query
@@ -25,7 +24,7 @@ exports.signup = function(req, res) {
 		name: _user.name
 	}, function(err, user) {
 		if (user) {
-			return res.redirect('/admin')
+			return res.redirect('/signin')
 		}
 		var user = new User(_user)
 		user.save(function(err, user) {
