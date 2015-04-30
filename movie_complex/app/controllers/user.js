@@ -1,5 +1,20 @@
 var User = require('../models/user')
 
+// signup
+exports.showSignup = function(req, res) {
+  res.render('signup', {
+    title: '注册页面'
+  })
+}
+
+exports.showSignin = function(req, res) {
+  res.render('signin', {
+    title: '登录页面'
+  })
+}
+
+
+
 //用户注册
 exports.signup = function(req, res) {
 	// req.query
@@ -26,7 +41,7 @@ exports.signup = function(req, res) {
 exports.signin = function(req, res) {
 	var _user = req.body.user
 	var name = _user.name
-	var password = _user.passworda
+	var password = _user.password
 	User.findOne({
 		name: name
 	}, function(err, user) {

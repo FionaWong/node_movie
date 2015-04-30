@@ -3,7 +3,7 @@ extends ../includes/layout
 block content
   .container
     .row
-      form.form-horizontal(method="post", action="/admin/input/")
+      form.form-horizontal(method="post", action="/admin/movie/update/")
         //隐藏input 用来更新
         input(type="hidden",name="movie[_id]",value="#{movie._id}" )
         .form-group

@@ -19,18 +19,27 @@ module.exports = function(app) {
 	//首页
 	app.get('/',Index.index)
 
-	//用户管理
-	//登陆 登出 用户列表
+  //用户管理
+  //登录框
+  app.get('/signin', User.showSignin)
+  app.get('/signup', User.showSignup)
+
+  //验证
   app.post('/user/signin',User.signin)
   app.post('/user/signup', User.signup)
+
+  //退出
   app.get('/logout', User.logout)
   app.get('/user/userlist',User.userlist)
 
   //电影处理
   app.get('/admin/movie/detail/:id', Movie.detail)
   app.get('/admin/movie/list', Movie.list)
-  // app.get('/admin/movie/update/:id',  Movie.update)
-  // app.post('/admin/movie', Movie.save)
+  app.get('/admin/movie/update/:id',  Movie.update)
+
+  //更新,修改后台的记录
+  app.post('/admin/movie/update', Movie.save)
+
   // app.delete('/admin/movie/list', Movie.delete)
 
 }
