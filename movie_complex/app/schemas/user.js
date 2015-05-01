@@ -10,6 +10,11 @@ var UserSchema = new mongoose.Schema({
     type:String
   },
   password:String,
+  //权限
+  role:{
+    type:Number,
+    default:0
+  },
   meta: {
     createAt: {
       type: Date,
