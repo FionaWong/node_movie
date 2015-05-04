@@ -2,11 +2,11 @@
 
 ***
 ##分2个版本
-1. 简单版本movie_simple(完成)
-2. 复杂版本movie_complex(正在编写)
+1. 简单版本simple(完成)
+2. 复杂版本complex(正在编写)
 ***
 
-movie_simple
+simple
 -------------
 
 
@@ -33,7 +33,7 @@ movie_simple
 ***
 
 
-movie_complex
+complex
 -------------
 
     正在完善中.......
