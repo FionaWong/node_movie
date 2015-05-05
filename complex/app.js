@@ -46,6 +46,3 @@ app.listen(port)
 
 
 console.log('imooc started on port ' + port)
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
