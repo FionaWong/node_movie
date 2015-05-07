@@ -1,9 +1,10 @@
 var _ = require('underscore')
 
 //路由控制器
-var Index = require('../app/controllers/index')
-var User  = require('../app/controllers/user')
-var Movie = require('../app/controllers/movie')
+var Index   = require('../app/controllers/index')
+var User    = require('../app/controllers/user')
+var Movie   = require('../app/controllers/movie')
+var Comment = require('../app/controllers/comment')
 
 module.exports = function(app) {
 
@@ -41,8 +42,12 @@ module.exports = function(app) {
   app.get('/admin/movie/new',  Movie.new)
   //后台输入
   app.post('/admin/movie/update', Movie.save)
-
+  //删除
   app.delete('/admin/movie/list', Movie.delete)
+
+
+  //评论
+  app.post('/user/comment', Comment.save)
 
 }
 
