@@ -7,7 +7,6 @@ var _ = require('underscore')
 //通过id 获取详情页面的指定数据
 exports.detail = function(req, res) {
 	var id = req.params.id
-	console.log(id)
 	Movie.findById(id, function(err, movie) {
 		res.render('detail', {
 			title: movie.title,
@@ -16,10 +15,10 @@ exports.detail = function(req, res) {
 	})
 }
 
-
-exports.input = function() {
+//输入信息
+exports.new = function(req, res) {
 	//数据录入页面
-	res.render('input', {
+	res.render('new', {
 		title: 'imooc 后台',
 		movie: {
 			title: '',
@@ -41,7 +40,7 @@ exports.update = function(req, res) {
 	if (id) {
 		Movie.findById(id, function(err, movie) {
 			//查询到对应数据,显示出来
-			res.render('input', {
+			res.render('new', {
 				title: '后台更新页',
 				movie: movie
 			})
@@ -71,28 +70,29 @@ exports.save = function(req, res) {
 				if (err) {
 					console.log(err)
 				}
-				res.redirect('/admin/detail/' + id)
+				res.redirect('/admin/movie/detail/' + id)
 			})
 		})
 	} else {
 		//新增
 		_moive = new Movie({
-			doctor: movieObj.doctor,
-			title: movieObj.title,
-			country: movieObj.country,
-			language: movieObj.language,
-			year: movieObj.year,
-			flash: movieObj.flash,
-			summary: movieObj.sunmmary
+			doctor   : movieObj.doctor,
+			title    : movieObj.title,
+			country  : movieObj.country,
+			language : movieObj.language,
+			year     : movieObj.year,
+			poster   : movieObj.poster,
+			flash    : movieObj.flash,
+			summary  : movieObj.summary
 		})
 
 		_moive.save(function(err, movie) {
 			if (err) {
 				console.log(err)
 			}
-			console.log('成功')
-				//数据保存成功后,定位到显示页面
-			res.redirect('/admin/detail/' + _moive._id)
+			console.log('信息录入成功')
+			//数据保存成功后,定位到显示页面
+			res.redirect('/admin/movie/detail/' + _moive._id)
 		})
 	}
 }

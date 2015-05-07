@@ -35,8 +35,10 @@ module.exports = function(app) {
   //电影处理
   app.get('/admin/movie/detail/:id', Movie.detail)
   app.get('/admin/movie/list', Movie.list)
+  //信息更新
   app.get('/admin/movie/update/:id',  Movie.update)
-
+  //信息输入
+  app.get('/admin/movie/new',  Movie.new)
   //更新,修改后台的记录
   app.post('/admin/movie/update', Movie.save)
 
