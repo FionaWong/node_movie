@@ -1,5 +1,7 @@
 //电影模型
 var Movie = require('../models/movie')
+//评论模型
+var Comment = require('../models/comment')
 var _ = require('underscore')
 
 
@@ -8,9 +10,13 @@ var _ = require('underscore')
 exports.detail = function(req, res) {
 	var id = req.params.id
 	Movie.findById(id, function(err, movie) {
-		res.render('detail', {
-			title: movie.title,
-			movie: movie
+		Comment.find({movie:id},function(err,comments){
+			console.log(comments)
+			res.render('detail', {
+				title    : movie.title,
+				movie    : movie,
+				comments : comments
+			})
 		})
 	})
 }
