@@ -37,6 +37,7 @@ if ('development' === app.get('env')) {
 	mongoose.set('debug', true)
 }
 
+//路由地址
 require('./config/routes')(app)
 
 //本地资源路径

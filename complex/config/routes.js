@@ -39,10 +39,10 @@ module.exports = function(app) {
   app.get('/admin/movie/update/:id',  Movie.update)
   //信息输入
   app.get('/admin/movie/new',  Movie.new)
-  //更新,修改后台的记录
+  //后台输入
   app.post('/admin/movie/update', Movie.save)
 
-  // app.delete('/admin/movie/list', Movie.delete)
+  app.delete('/admin/movie/list', Movie.delete)
 
 }
 
