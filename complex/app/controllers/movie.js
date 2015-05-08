@@ -12,16 +12,16 @@ exports.detail = function(req, res) {
 	Movie.findById(id, function(err, movie) {
 		//查到对应的评论数据
 		Comment
-			.find({movie:id}
+			.find({movie:id}) 
 			.populate('from','name')
 			.exec(function(err,comments){
-			console.log(comments)
-					res.render('detail', {
-						title    : movie.title,
-						movie    : movie,
-						comments : comments
-					})
+				console.log(comments)
+				res.render('detail', {
+					title    : movie.title,
+					movie    : movie,
+					comments : comments
 				})
+		})
 	})
 }
 
