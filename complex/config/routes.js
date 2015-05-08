@@ -45,7 +45,6 @@ module.exports = function(app) {
   //删除
   app.delete('/admin/movie/list', Movie.delete)
 
-
   //评论
   app.post('/user/comment', Comment.save)
 

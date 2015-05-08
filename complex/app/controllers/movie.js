@@ -10,14 +10,18 @@ var _ = require('underscore')
 exports.detail = function(req, res) {
 	var id = req.params.id
 	Movie.findById(id, function(err, movie) {
-		Comment.find({movie:id},function(err,comments){
+		//查到对应的评论数据
+		Comment
+			.find({movie:id}
+			.populate('from','name')
+			.exec(function(err,comments){
 			console.log(comments)
-			res.render('detail', {
-				title    : movie.title,
-				movie    : movie,
-				comments : comments
-			})
-		})
+					res.render('detail', {
+						title    : movie.title,
+						movie    : movie,
+						comments : comments
+					})
+				})
 	})
 }
 
