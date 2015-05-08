@@ -1,5 +1,3 @@
-var _ = require('underscore')
-
 //路由控制器
 var Index   = require('../app/controllers/index')
 var User    = require('../app/controllers/user')
@@ -25,13 +23,15 @@ module.exports = function(app) {
   app.get('/signin', User.showSignin)
   app.get('/signup', User.showSignup)
 
-  //验证
+  //登录页面
   app.post('/user/signin',User.signin)
   app.post('/user/signup', User.signup)
 
   //退出
   app.get('/logout', User.logout)
-  app.get('/user/userlist',User.userlist)
+
+  //登录权限->管理权限
+  app.get('/admin/userlist', User.signinRequired, User.adminRequired, User.userlist)
 
   //电影处理
   app.get('/admin/movie/detail/:id', Movie.detail)

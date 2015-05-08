@@ -47,9 +47,11 @@ exports.signin = function(req, res) {
 		if (err) {
 			console.log(err)
 		}
+		//用户不存在
 		if (!user) {
-			return res.redirect('/signout')
+			return res.redirect('/signin')
 		}
+		//用户存在,验证密码
 		user.comparePassword(password, function(err, isMatch) {
 			if (err) {
 				console.log(err)
@@ -101,7 +103,7 @@ exports.signinRequired = function(req, res, next) {
 
 exports.adminRequired = function(req, res, next) {
   var user = req.session.user
-
+  console.log(222222,user)
   if (user.role <= 10) {
     return res.redirect('/signin')
   }
