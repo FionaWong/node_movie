@@ -43,10 +43,9 @@ app.get('/update/:id', function(req, res) {
 	if (id) {
 		//查找指定要修改的数据
 		User.findOne({_id: id},function(err,oneUser){
-			console.log(oneUser)
-				res.render('test', {
-					 oneUser : oneUser
-				})
+			res.render('test', {
+				 oneUser : oneUser
+			})
 		})
 	}
 })
@@ -55,40 +54,36 @@ app.get('/update/:id', function(req, res) {
 app.post('/update', function(req, res) {
 	var oneUser = req.body.oneUser;
 	if (!oneUser) {
-		console.log(oneUser)
 		return
 	}
-
-	mongooseModel.update(conditions, update, options, callback);
-	var conditions = {
-		username: 'model_demo_username'
-	};
-	var update = {
-		$set: {
-			age: 27,
-			title: 'model_demo_title_update'
+	User.update({_id: oneUser._id}, {
+		$set: {name: oneUser.name,password:oneUser.password}
+	}, function(err) {
+		if(err){
+			console.log(err)
+			return
 		}
-	};
-	var options = {
-		upsert: true
-	};
-	mongooseModel.update(conditions, update, options, function(error) {
-		if (error) {
-			console.log(error);
-		} else {
-			console.log('update ok!');
-		}
-	});
-	User.update({
-		name: oneUser.name
-	}, {
-		password: oneUser.password
-	}, function(err, numberAffected, raw) {
-		console.log(numberAffected)
+		console.log('更新成功')
+		return res.redirect('/')
 	});
 });
 
 
-
+//删除数据
+app.get('/delete/:id', function(req, res) {
+	var id = req.params.id;
+	if (id) {
+		User.remove({
+			_id: id
+		}, function(err) {
+			if (err) {
+				console.log(err)
+				return
+			}
+			console.log('删除成功')
+			return res.redirect('/')
+		});
+	}
+})
 
 app.listen(3000)

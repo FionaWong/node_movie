@@ -6,6 +6,7 @@ html
 		h1 mongoose数据操作测试
 		if oneUser
 			form(method="POST" action="/update")
+				input(type="hidden", name="oneUser[_id]", value="#{oneUser._id}")
 				.form-group
 					laber(for="inputTitle") 帐号
 					input(type="text" name="oneUser[name]" value="#{oneUser.name}")
