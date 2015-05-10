@@ -9,8 +9,9 @@ var _ = require('underscore')
 //通过id 获取详情页面的指定数据
 exports.detail = function(req, res) {
 	var id = req.params.id
+	//找到对应的电影信息
 	Movie.findById(id, function(err, movie) {
-		//查到对应的评论数据
+		//查到电影对应的评论数据
 		Comment
 			.find({movie:id}) 
 			.populate('from','name')

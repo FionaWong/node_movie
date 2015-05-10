@@ -35,12 +35,13 @@ exports.signup = function(req, res) {
 		})
 	})
 }
-
+  
 //用户登录
 exports.signin = function(req, res) {
 	var _user = req.body.user
 	var name = _user.name
 	var password = _user.password
+	console.log(name,password)
 	User.findOne({
 		name: name
 	}, function(err, user) {
@@ -61,7 +62,7 @@ exports.signin = function(req, res) {
 				req.session.user = user
 				return res.redirect('/')
 			} else {
-				return res.redirect('/signin')
+				return res.redirect('./signin')
 			}
 		})
 	})
@@ -83,7 +84,7 @@ exports.userlist =  function(req, res) {
 //退出销毁session
 exports.logout =  function(req, res) {
 	delete req.session.user
-	// delete app.locals.user
+	delete app.locals.user
 	res.redirect('/')
 }
 
